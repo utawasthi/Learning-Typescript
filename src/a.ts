@@ -135,3 +135,128 @@ const func = (param: A & B) => {
 };
 
 func({ a: "Hello", b: 42 }); // Valid
+
+
+
+// Enum
+
+enum Directions {
+  Up = 1, 
+  Down , 
+  Left , 
+  Right 
+};
+
+
+const move = (key : Directions) : void => {
+  if(key === Directions.Down){
+    console.log("move down");
+  }
+  else if(key === Directions.Up){
+    console.log("move up");
+  }
+  else if(key === Directions.Left){
+    console.log("move left");
+  }
+  else{
+    console.log("move right");
+  }
+}
+
+move(Directions.Up);
+
+// reverse mapping --> can get the name of enum member by it's value
+
+console.log(Directions[1]); // prints "Up" in console
+
+enum Role {
+  Admin = "ADMIN",
+  User = "USER",
+  Guest = "GUEST"
+}
+
+function checkAccess(role: Role) {
+  if (role === Role.Admin) {
+    console.log("Access granted");
+  } else {
+    console.log("Access denied");
+  }
+}
+
+checkAccess(Role.Admin);  // Output: Access granted
+checkAccess(Role.Guest);  // Output: Access denied
+
+// Generics
+
+// Generics can be used in:  Functions , Interfaces , Classes, Type Aliases
+
+function identity<T>(value : T) : T {
+  return value;
+}
+
+const ans1 = identity<string>("Utkarsh");
+const ans2 = identity<number>(2);
+
+console.log(`${ans1} , ${ans2}`);
+
+
+interface Box<T> {
+  content : T;
+}
+
+
+const stringBox: Box<string> = {content : "Utkarsh"};
+const numberBox: Box<number> = {content : 23};
+
+numberBox.content = 100;
+// numberBox.content = "Awasthi"; // error : Type 'string' is not assignable to type 'number'.
+
+
+
+class DataStorage<T> {
+  private items : T[] = [];
+
+  addItem(item : T) : void{
+    this.items.push(item);
+  }
+
+  removeItem(item : T) : void {
+    this.items = this.items.filter(i => i !== item);
+  }
+
+  getItems() : T[] {
+    return this.items;
+  }
+}
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem("Utkarsh");
+textStorage.addItem("Awasthi");
+
+console.log(textStorage.getItems());
+
+const numberStorage = new DataStorage<number>();
+numberStorage.addItem(10);
+numberStorage.addItem(20);
+numberStorage.removeItem(10);
+
+console.log(numberStorage.getItems());
+
+
+
+// Type Aliases
+
+type Pair<T , U> = {
+  first : T;
+  second : U;
+}
+
+const stringPair : Pair<string , string> = {
+  first : "Utkarsh" , 
+  second : "Awasthi"
+};
+
+const mixedPair : Pair<string , number> = {
+  first : "Utkarsh",
+  second : 22,
+};
