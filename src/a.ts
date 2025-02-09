@@ -260,3 +260,7 @@ const mixedPair : Pair<string , number> = {
   first : "Utkarsh",
   second : 22,
 };
+
+const arr : number[] = [1 , 3 , 5 , 6];
+const id = arr.find(num => num > 2);
+console.log('Id --> ' , id);
